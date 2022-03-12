@@ -40,9 +40,9 @@ class Database():
             path (String): String representation of folder path
         """
 
-        INSERT_TABLE_SIGNS = """INSERT INTO signs (name_pk, count, folder ) VALUES (?,?,?);"""
+        INSERT_TABLE_SIGNS = """INSERT INTO signs (name_pk, count, path ) VALUES (?,?,?);"""
 
-        count = self.cursor.execute(INSERT_TABLE_SIGNS, (name, 1, path))
+        count = self.cursor.execute(INSERT_TABLE_SIGNS, (name, 0, path))
         self.conn.commit()
 
 
@@ -53,7 +53,7 @@ class Database():
             amount_recorded (Integer): Amount of new videos recorded
         """
         
-        count = self.get_count()
+        count = self.get_count(name)
         new_count = count + amount_recorded
 
         UPDATE_TABLE_SIGNS = """UPDATE signs
@@ -67,4 +67,14 @@ class Database():
         GET_COUNT = """SELECT count FROM signs
                        WHERE name_pk = (?);"""
 
-        return self.cursor.execute(GET_COUNT, (name,)).fetchall()
+        count =  self.cursor.execute(GET_COUNT, (name,)).fetchall()[0][0]
+
+        return count
+
+    def get_path(self, name):
+        GET_PATH = """SELECT path FROM signs
+                       WHERE name_pk = (?);"""
+
+        count =  self.cursor.execute(GET_PATH, (name,)).fetchall()[0][0]
+
+        return count
