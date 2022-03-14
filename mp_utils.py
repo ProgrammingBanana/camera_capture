@@ -1,5 +1,6 @@
 import cv2
 import mediapipe as mp
+import numpy as np
 
 class mp_utilities():
     def __init__(self):
@@ -54,3 +55,10 @@ class mp_utilities():
         self.mp_drawing.draw_landmarks(image, results.right_hand_landmarks, self.mp_holistic.HAND_CONNECTIONS,
                                 self.mp_drawing.DrawingSpec(color=(230, 216, 173), thickness=2, circle_radius=4),
                                 self.mp_drawing.DrawingSpec(color=(255, 121, 80), thickness=1, circle_radius=2))
+
+    def extract_keypoints(self, results):
+        pose = np.array([[res.x, res.y, res.z, res.visibility] for res in results.pose_landmarks.landmark]).flatten() if results.left_hand_landmarks else np.zeros(132) # If null array is array of zeros, else array of coordinates
+        left_hand = np.array([[res.x, res.y, res.z] for res in results.left_hand_landmarks.landmark]).flatten() if results.left_hand_landmarks else np.zeros(63) # If null array is array of zeros, else array of coordinates
+        right_hand = np.array([[res.x, res.y, res.z] for res in results.right_hand_landmarks.landmark]).flatten() if results.right_hand_landmarks else np.zeros(63) # If null array is array of zeros, else array of coordinates
+        face = np.array([[res.x, res.y, res.z] for res in results.face_landmarks.landmark]).flatten() if results.face_landmarks else np.zeros(1404) # If null array is array of zeros, else array of coordinates
+        return np.concatenate([pose, face, left_hand, right_hand])
