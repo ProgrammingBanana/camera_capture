@@ -78,3 +78,8 @@ class Database():
         count =  self.cursor.execute(GET_PATH, (name,)).fetchall()[0][0]
 
         return count
+
+    def get_signs(self):
+        GET_SIGNS = """ SELECT * FROM signs"""
+
+        return self.cursor.execute(GET_SIGNS).fetchall()
