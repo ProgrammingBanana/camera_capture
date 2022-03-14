@@ -2,3 +2,4 @@
 __pycache__/*
 test.py
 data.db
+MP_DATA/*
