@@ -12,6 +12,18 @@ class VideoCapture():
     def __init__(self):
         self.utils = mp_utilities()
         db = DB()
+        self.sign_data = db.get_signs()
+        self.selected_sign = self.select_sign()
+        self.recording_amount = self.get_recording_amount()
+        self.capture_video()
+
+    def select_sign(self):
+        for index, sign in enumerate(self.sign_data):
+            print(f'{index}) Sign:{sign[0]}\n   Count:{sign[1]}')
+        return input("Select sign you want to work with:")
+
+    def get_recording_amount(self):
+        return input("Input how many videos you want to record this session:")
 
     def capture_video(self):
         # Connects to the webcam (the number can vary depending on machine)
@@ -42,6 +54,9 @@ class VideoCapture():
             cv2.destroyAllWindows()
             cv2.waitKey(1)
 
-test = VideoCapture()
+# test = VideoCapture()
 
-test.capture_video()
+# test.capture_video()
+
+def __main__():
+    pass
