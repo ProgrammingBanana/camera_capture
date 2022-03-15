@@ -71,13 +71,6 @@ class Database():
 
         return count
 
-    def get_path(self, name):
-        GET_PATH = """SELECT path FROM signs
-                       WHERE name_pk = (?);"""
-
-        count =  self.cursor.execute(GET_PATH, (name,)).fetchall()[0][0]
-
-        return count
 
     def get_signs(self):
         GET_SIGNS = """ SELECT * FROM signs"""

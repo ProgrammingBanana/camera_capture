@@ -14,6 +14,7 @@ class VideoCapture():
         db = DB()
         self.sign_data = db.get_signs()
         self.selected_sign = self.select_sign()
+        self.path = self.sign_data[self.selected_sign][2]
         self.recording_amount = self.get_recording_amount()
         self.capture_video()
 
