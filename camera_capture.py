@@ -11,13 +11,13 @@ class VideoCapture():
 
     def __init__(self):
         self.utils = mp_utilities()
-        db = DB()
-        self.sign_data = db.get_signs()
+        self.db = DB()
+        self.sign_data = self.db.get_signs()
         self.name, self.count, self.path = self.select_sign()
         self.recording_amount = self.get_recording_amount()
         self.starting_sequence = self.get_starting_sequence()
         self.ending_sequence = self.get_ending_sequence()
-        self.sequence_length = 60
+        self.sequence_length = 30
         self.capture_video()
 
     def select_sign(self):
@@ -71,10 +71,19 @@ class VideoCapture():
                                     cv2.FONT_HERSHEY_SIMPLEX, 1, (0, 0, 255), 4, cv2.LINE_AA)
                         # Show the camera feed
                         cv2.imshow('OpenCV Camera Feed', image)
+
+                    # Extracts keypoints from the results for each frame and saves it in the corresponding file
+                    keypoints = self.utils.extract_keypoints(results)
+                    print(keypoints)    
+                    npy_path = os.path.join(self.path, str(sequence), str(frame_num))
+                    np.save(npy_path, keypoints)
+
                     
                     # If pressing 'q' Quit the camera
                     if cv2.waitKey(10) & 0xFF == ord('q'):
                         break
+            
+            self.db.update_sign(self.name, self.recording_amount)
             
             # Close video capture
             cap.release()
