@@ -59,8 +59,6 @@ actions = np.array(['ayuda', 'clase', 'donde', 'gracias', 'hola', 'necesitar', '
 
 # Thirty videos worth of data
 no_sequences = 200
-# Videos are going to be 30 frames in length
-sequence_length = 60
 
 for action in actions:
     for sequence in range(no_sequences):
