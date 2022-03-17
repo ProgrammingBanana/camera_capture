@@ -71,6 +71,7 @@ class mp_utilities():
         Returns:
             Numpy array: Numpy array containing all landmark data
         """
+        
         pose = np.array([[res.x, res.y, res.z, res.visibility] for res in results.pose_landmarks.landmark]).flatten() if results.left_hand_landmarks else np.zeros(132) # If null array is array of zeros, else array of coordinates
         left_hand = np.array([[res.x, res.y, res.z] for res in results.left_hand_landmarks.landmark]).flatten() if results.left_hand_landmarks else np.zeros(63) # If null array is array of zeros, else array of coordinates
         right_hand = np.array([[res.x, res.y, res.z] for res in results.right_hand_landmarks.landmark]).flatten() if results.right_hand_landmarks else np.zeros(63) # If null array is array of zeros, else array of coordinates
