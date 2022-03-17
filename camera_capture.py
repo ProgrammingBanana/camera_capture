@@ -10,6 +10,14 @@ from database import Database as DB
 class VideoCapture():
 
     def __init__(self):
+        """ VideoCapture constructor:
+            - Initializes utilities and the database
+            - Gets signs data
+            - User selection for sign to record
+            - User input for amount of videos to record
+            - Commences video capture utilizing previously stated data 
+        """
+
         self.utils = mp_utilities()
         self.db = DB()
         self.sign_data = self.db.get_signs()
@@ -21,21 +29,56 @@ class VideoCapture():
         self.capture_video()
 
     def select_sign(self):
+        """ Prints on console on the console the signs to record and the amount of videos recorded for each sign
+            late giving the user the chance to select which sign they want to work with in the session.
+
+        Returns:
+            Tuple: Python tuple containing the selected sign name, video count and file path.
+        """
+
         for index, sign in enumerate(self.sign_data):
             print(f'{index}) Sign:{sign[0]}\n   Count:{sign[1]}')
         selection = int(input("Select sign you want to work with:"))
         return (self.sign_data[selection][0],self.sign_data[selection][1],self.sign_data[selection][2])
 
     def get_recording_amount(self):
+        """ Allows the user to decide how many videos they want to record in the current session
+
+        Returns:
+            Integer: Amount of videos the user wants to record
+        """
+
         return int(input("Input how many videos you want to record this session:"))
 
     def get_starting_sequence(self):
+        """ Gets the number ID for the most current video.  Used to specify collection folder
+            for the first video of the session. The first video data recorded in the session 
+            will be saved in the folder for the specified by this number. This data is saved 
+            during the execution of capture_video().
+
+        Returns:
+            Integer: Most current video number to start recording at
+        """
+
         return self.count
 
     def get_ending_sequence(self):
+        """ Gets the number ID of the video the recording session will finish at.  The last file saved will
+            be stored in a folder identified by self.starting_sequence + self.recording_amount - 1.  This is
+            due to the looping logic used in the capture_video() function
+
+        Returns:
+            Integer: ID of the video the recording session will finish at
+        """
+
         return self.starting_sequence + self.recording_amount 
 
     def capture_video(self):
+        """ Utilizing the data collected in the constructor method, the video capture is started
+            In this function, the camera feed is used to process in mediapipe holistic and then stored
+            in a folder for the current video sequence number
+        """
+
         # Connects to the webcam (the number can vary depending on machine)
         cap = cv2.VideoCapture(0)
 
@@ -76,7 +119,9 @@ class VideoCapture():
                     keypoints = self.utils.extract_keypoints(results)
                     print(keypoints)    
                     npy_path = os.path.join(self.path, str(sequence), str(frame_num))
-                    np.save(npy_path, keypoints)
+                    np.save(npy_path, keypoints) 
+                    # The previous two lines create an .npy file in the following filepath:
+                    # ./ML_Camera_Capture/MP_Data/{sign_name}/{self.count}/{frame_num}.npy
 
                     
                     # If pressing 'q' Quit the camera
