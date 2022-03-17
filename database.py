@@ -3,7 +3,7 @@ import sqlite3
 
 class Database():
     def __init__(self):
-        """ Initializes the object by connecting to the database and creating all tables if they didnt exist """
+        """ Initializes the object by connecting to the database and creating the table if it didnt exist """
         self.conn =  sqlite3.connect("data.db")
         self.cursor = self.conn.cursor()
         self.cursor.execute("PRAGMA foreign_keys = 1") #This is needed in order to force sqlite to enforce foreign keys
@@ -22,7 +22,7 @@ class Database():
 
 
     def create_tables(self):
-        """Creates all tables if they dont exist """
+        """Creates table if it doesnt exist """
 
         CREATE_TABLE_SIGNS = """CREATE TABLE IF NOT EXISTS signs(
                                     name_pk TEXT NOT NULL PRIMARY KEY,
@@ -34,9 +34,9 @@ class Database():
 
 
     def insert_sign(self, name, path):
-        """ Inserts a robot into the database
+        """ Inserts a sign entry into the signs table
         Args:
-            name (String): Robot string representation (Since these are unique, they are used as primary keys)
+            name (String): Primary Key, name of the sign
             path (String): String representation of folder path
         """
 
@@ -47,9 +47,9 @@ class Database():
 
 
     def update_sign(self, name, amount_recorded):
-        """ Updates a robot in the database, by setting obj to the current version of the robot obj 
+        """ Updates a sign entry in the signs table by incrementing the amount of recordings done in count
         Args:
-            name (String): Robot string representation (Since these are unique, they are used as primary keys)
+            name (String): Primary Key, name of the sign
             amount_recorded (Integer): Amount of new videos recorded
         """
         
@@ -64,6 +64,14 @@ class Database():
         self.conn.commit()
 
     def get_count(self, name):
+        """ Gets the amounts of videos recorded for a given sign
+
+        Args:
+            name (String): Primary Key, name of the sign
+        Returns:
+            Integer: amount of videos recorded for a given sign
+        """
+
         GET_COUNT = """SELECT count FROM signs
                        WHERE name_pk = (?);"""
 
@@ -73,6 +81,12 @@ class Database():
 
 
     def get_signs(self):
+        """ Gets a list of all signs and their data
+
+        Returns:
+            List: List of sign tuples that contain the name, count and file path for a given sign
+        """
+
         GET_SIGNS = """ SELECT * FROM signs"""
 
         return self.cursor.execute(GET_SIGNS).fetchall()
