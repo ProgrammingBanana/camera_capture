@@ -55,7 +55,7 @@ This script will create a folder structure in the following way:
 DATA_PATH = os.path.join('MP_Data') 
 
 # Actions (signs) we are trying to detect
-actions = np.array(['ayuda', 'clase', 'donde', 'gracias', 'hola', 'necesitar', 'no_entender', 'repetir'])
+actions = np.array(['ayuda', 'clase', 'donde', 'gracias', 'hola', 'necesitar', 'no_entender', 'repetir', 'n-a', 'empty'])
 
 # Thirty videos worth of data
 no_sequences = 200
