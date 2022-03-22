@@ -103,14 +103,14 @@ class VideoCapture():
                     if frame_num == 0:
                         cv2.putText(image, 'STARTING COLLECTION', (120, 200), 
                                     cv2.FONT_HERSHEY_SIMPLEX, 1, (0, 255, 0), 4, cv2.LINE_AA)
-                        cv2.putText(image, 'Collecting frames for {} Video Number: {}'.format(self.name, sequence), (15, 12), 
+                        cv2.putText(image, 'Collecting frames for {} Video Number: {}'.format(self.name, sequence), (20, 20), 
                                     cv2.FONT_HERSHEY_SIMPLEX, 1, (0, 0, 255), 4, cv2.LINE_AA)
                         # Show the camera feed
                         cv2.imshow('OpenCV Camera Feed', image)
                         
                         cv2.waitKey(2000)
                     else:
-                        cv2.putText(image, 'Collecting frames for {} Video Number: {}'.format(self.name, sequence), (15, 12), 
+                        cv2.putText(image, 'Collecting frames for {} Video Number: {}'.format(self.name, sequence), (20, 20), 
                                     cv2.FONT_HERSHEY_SIMPLEX, 1, (0, 0, 255), 4, cv2.LINE_AA)
                         # Show the camera feed
                         cv2.imshow('OpenCV Camera Feed', image)
