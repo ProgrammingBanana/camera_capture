@@ -46,7 +46,7 @@ class mp_utilities():
         # VERIFY THIS INFORMATION
         # the last arguments is the type of connections to use when drawing
         # It shows what landmark is connected to what other landmark
-        self.mp_drawing.draw_landmarks(image, results.face_landmarks, self.mp_holistic.FACE_CONNECTIONS,
+        self.mp_drawing.draw_landmarks(image, results.face_landmarks, self.mp_holistic.FACEMESH_CONTOURS,
                                 self.mp_drawing.DrawingSpec(color=(230, 216, 173), thickness=1, circle_radius=1),
                                 self.mp_drawing.DrawingSpec(color=(255, 121, 80), thickness=1, circle_radius=1))
         self.mp_drawing.draw_landmarks(image, results.pose_landmarks, self.mp_holistic.POSE_CONNECTIONS,
