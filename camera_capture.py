@@ -63,7 +63,7 @@ class VideoCapture():
             Integer: Amount of videos the user wants to record
         """
 
-        return int(input("Input how many videos you want to record this session:"))
+        return int(input(f"Input how many videos you want to record for {self.name} this session:"))
 
     def get_starting_sequence(self):
         """ Gets the number ID for the most current video.  Used to specify collection folder
