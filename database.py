@@ -90,3 +90,11 @@ class Database():
         GET_SIGNS = """ SELECT * FROM signs"""
 
         return self.cursor.execute(GET_SIGNS).fetchall()
+
+    def reset_count(self, name):
+        SET_COUNT = """UPDATE signs
+                            SET count = 0
+                       WHERE name_pk = (?); """
+
+        self.cursor.execute(SET_COUNT, (name,))
+        self.conn.commit()
