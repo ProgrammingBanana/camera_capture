@@ -48,9 +48,13 @@ class VideoCapture():
         """ Function that removes sign data for signs that already have 200 recordings
         """
         
-        for index, sign in enumerate(self.sign_data):
-            if sign[1] == 200:
-                self.sign_data.pop(index)
+        temp = []
+
+        for sign in self.sign_data:
+            if sign[1] < 200:
+                temp.append(sign)
+
+        self.sign_data = temp
 
     def get_recording_amount(self):
         """ Allows the user to decide how many videos they want to record in the current session
