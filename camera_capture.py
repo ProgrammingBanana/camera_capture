@@ -36,10 +36,21 @@ class VideoCapture():
             Tuple: Python tuple containing the selected sign name, video count and file path.
         """
 
+        self.remove_done()
+
         for index, sign in enumerate(self.sign_data):
             print(f'{index}) Sign:{sign[0]}\n   Count:{sign[1]}')
+
         selection = int(input("Select sign you want to work with:"))
         return (self.sign_data[selection][0],self.sign_data[selection][1],self.sign_data[selection][2])
+
+    def remove_done(self):
+        """ Function that removes sign data for signs that already have 200 recordings
+        """
+        
+        for index, sign in enumerate(self.sign_data):
+            if sign[1] == 200:
+                self.sign_data.pop(index)
 
     def get_recording_amount(self):
         """ Allows the user to decide how many videos they want to record in the current session
@@ -117,7 +128,7 @@ class VideoCapture():
 
                     # Extracts keypoints from the results for each frame and saves it in the corresponding file
                     keypoints = self.utils.extract_keypoints(results)
-                    print(keypoints)    
+                    # print(keypoints)    
                     npy_path = os.path.join(self.path, str(sequence), str(frame_num))
                     np.save(npy_path, keypoints) 
                     # The previous two lines create an .npy file in the following filepath:
