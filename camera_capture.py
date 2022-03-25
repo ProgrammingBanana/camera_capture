@@ -21,6 +21,8 @@ class VideoCapture():
         self.utils = mp_utilities()
         self.db = DB()
         self.sign_data = self.db.get_signs()
+        self.remove_done()
+        self.amount_left = self.calculate_amount_left()
         self.name, self.count, self.path = self.select_sign()
         self.recording_amount = self.get_recording_amount()
         self.starting_sequence = self.get_starting_sequence()
@@ -36,7 +38,7 @@ class VideoCapture():
             Tuple: Python tuple containing the selected sign name, video count and file path.
         """
 
-        self.remove_done()
+        print(f"\nSign Selection \n{self.amount_left} recordings left:")
 
         for index, sign in enumerate(self.sign_data):
             print(f'{index}) Sign:{sign[0]}\n   Count:{sign[1]}')
@@ -56,6 +58,20 @@ class VideoCapture():
 
         self.sign_data = temp
 
+    def calculate_amount_left(self):
+        """ Function that calculates the amount of videos left to record
+        """
+        
+        total = 0
+
+        for sign in self.sign_data:
+            if sign[1] == 0:
+                total += 200
+            else:
+                total += (200 - sign[1])
+
+        return total
+
     def get_recording_amount(self):
         """ Allows the user to decide how many videos they want to record in the current session
 
@@ -63,7 +79,14 @@ class VideoCapture():
             Integer: Amount of videos the user wants to record
         """
 
-        return int(input(f"Input how many videos you want to record for {self.name} this session:"))
+        num = int(input(f"Input how many videos you want to record for {self.name} this session:"))
+
+        while self.count + num > 200 or num < 0:
+            print("Number must be positive and less than the amount needed to reach 200 videos")
+            num = int(input(f"Input how many videos you want to record for {self.name} this session:"))
+
+
+        return num
 
     def get_starting_sequence(self):
         """ Gets the number ID for the most current video.  Used to specify collection folder
