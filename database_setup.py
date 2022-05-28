@@ -1,7 +1,9 @@
 from database import Database as DB
 
+# opens database connection
 db = DB()
 
+# When starting video recording for the first time, update path to path created by folder_creation.py and run this code.
 db.insert_sign("ayuda", "/Users/codingdan/Documents/University/Semestre 2 2021-2022/Tesina/codigo/ML_Camera_Capture/MP_Data/ayuda")
 db.insert_sign("clase", "/Users/codingdan/Documents/University/Semestre 2 2021-2022/Tesina/codigo/ML_Camera_Capture/MP_Data/clase")
 db.insert_sign("donde", "/Users/codingdan/Documents/University/Semestre 2 2021-2022/Tesina/codigo/ML_Camera_Capture/MP_Data/donde")
