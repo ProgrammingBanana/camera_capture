@@ -2,7 +2,7 @@ import cv2
 import mediapipe as mp
 import numpy as np
 
-class mp_utilities():
+class MpUtils():
     def __init__(self):
         """ Constructor method, sets up necessary mediapipe utilities and model
         """ 
@@ -72,8 +72,14 @@ class mp_utilities():
             Numpy array: Numpy array containing all landmark data
         """
         
-        pose = np.array([[res.x, res.y, res.z, res.visibility] for res in results.pose_landmarks.landmark]).flatten() if results.left_hand_landmarks else np.zeros(132) # If null array is array of zeros, else array of coordinates
-        left_hand = np.array([[res.x, res.y, res.z] for res in results.left_hand_landmarks.landmark]).flatten() if results.left_hand_landmarks else np.zeros(63) # If null array is array of zeros, else array of coordinates
-        right_hand = np.array([[res.x, res.y, res.z] for res in results.right_hand_landmarks.landmark]).flatten() if results.right_hand_landmarks else np.zeros(63) # If null array is array of zeros, else array of coordinates
-        face = np.array([[res.x, res.y, res.z] for res in results.face_landmarks.landmark]).flatten() if results.face_landmarks else np.zeros(1404) # If null array is array of zeros, else array of coordinates
+        # If null array is array of zeros, else array of pose coordinates
+        pose = np.array([[res.x, res.y, res.z, res.visibility] for res in results.pose_landmarks.landmark]).flatten() if results.left_hand_landmarks else np.zeros(132) 
+        # If null array is array of zeros, else array of left hand coordinates
+        left_hand = np.array([[res.x, res.y, res.z] for res in results.left_hand_landmarks.landmark]).flatten() if results.left_hand_landmarks else np.zeros(63) 
+        # If null array is array of zeros, else array of right hand coordinates
+        right_hand = np.array([[res.x, res.y, res.z] for res in results.right_hand_landmarks.landmark]).flatten() if results.right_hand_landmarks else np.zeros(63) 
+        # If null array is array of zeros, else array of face coordinates
+        face = np.array([[res.x, res.y, res.z] for res in results.face_landmarks.landmark]).flatten() if results.face_landmarks else np.zeros(1404) 
+
+        # Concatenate all arrays into one
         return np.concatenate([pose, face, left_hand, right_hand])
