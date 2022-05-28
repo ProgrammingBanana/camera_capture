@@ -4,7 +4,7 @@ import os
 from matplotlib import pyplot as plt
 import time
 import mediapipe as mp
-from mp_utils import mp_utilities
+from mp_utils import MpUtils
 from database import Database as DB
 
 class VideoCapture():
@@ -18,7 +18,7 @@ class VideoCapture():
             - Commences video capture utilizing previously stated data 
         """
 
-        self.utils = mp_utilities()
+        self.utils = MpUtils()
         self.db = DB()
         self.sign_data = self.db.get_signs()
         self.remove_done()
@@ -27,7 +27,7 @@ class VideoCapture():
         self.recording_amount = self.get_recording_amount()
         self.starting_sequence = self.get_starting_sequence()
         self.ending_sequence = self.get_ending_sequence()
-        self.sequence_length = 30
+        self.SEQUENCE_LENGTH = 30
         self.capture_video()
 
     def select_sign(self):
@@ -127,7 +127,7 @@ class VideoCapture():
             cv2.waitKey(5000)
 
             for sequence in range(self.starting_sequence, self.ending_sequence):
-                for frame_num in range(self.sequence_length):
+                for frame_num in range(self.SEQUENCE_LENGTH):
             
                     # Read feed
                     ret, frame = cap.read()
