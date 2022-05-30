@@ -31,8 +31,8 @@ class VideoCapture():
         self.capture_video()
 
     def select_sign(self):
-        """ Prints on console on the console the signs to record and the amount of videos recorded for each sign
-            late giving the user the chance to select which sign they want to work with in the session.
+        """ Prints on the console the signs to record and the amount of videos recorded for each sign
+            giving the user the chance to select which sign they want to work with in the session.
 
         Returns:
             Tuple: Python tuple containing the selected sign name, video count and file path.
@@ -119,8 +119,7 @@ class VideoCapture():
 
         # Connects to the webcam (the number can vary depending on machine)
         cap = cv2.VideoCapture(0)
-
-        # TESTING THE FUNCTIONS WORKS 
+ 
         # Set mediapipe model
         with self.utils.mp_holistic.Holistic(min_detection_confidence=0.5, min_tracking_confidence=0.5) as holistic:
             print('waiting before recording new action')
