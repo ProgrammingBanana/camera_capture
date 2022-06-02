@@ -15,8 +15,8 @@ Although a database is being used to store data about the signs, it is not neces
 Having an updated version of Python installed on the computer is necessary for the project to work
 1. Run the command ```pip install pipenv``` in your command line terminal
 2. Download code from the repository
-3. Go to the project location in command line and run the command ```pipenv install --ignore-pipfile``` to install dependencies named in the pipfile.lock document
-4. Run the command ```pipenv shell``` to start the virtual environment
+3. Go to the project location in command line and run the command ```pipenv shell``` to start the virtual environment
+4. In command line and run the command ```pipenv install --ignore-pipfile``` to install dependencies named in the pipfile.lock document
 5. Run the command ```python folder_creation.py``` before any other script to create the data collection folders in the project directory.
 6. Using the directories created, update the database_setup.py file so that all filepaths mentioned in the db.insert_sign() point to the corresponding filepath in your own machine. 
 7. Once you do so, you can run the command ```python database_setup.py``` to create the database and add the entries for each individual sign to the database.  Each entry will start with the sign name, 0 for the count, and the filepaths defined in the previous step.
