@@ -18,8 +18,7 @@ Having an updated version of Python installed on the computer is necessary for t
 3. Go to the project location in command line and run the command ```pipenv shell``` to start the virtual environment
 4. In command line and run the command ```pipenv install --ignore-pipfile``` to install dependencies named in the pipfile.lock document
 5. Run the command ```python folder_creation.py``` before any other script to create the data collection folders in the project directory.
-6. Using the directories created, update the database_setup.py file so that all filepaths mentioned in the db.insert_sign() point to the corresponding filepath in your own machine. 
-7. Once you do so, you can run the command ```python database_setup.py``` to create the database and add the entries for each individual sign to the database.  Each entry will start with the sign name, 0 for the count, and the filepaths defined in the previous step.
+6. Once you do so, you can run the command ```python database_setup.py``` to create the database and add the entries for each individual sign to the database.  Each entry will start with the sign name, 0 for the count, and the filepaths defined in the previous step.
 
 ## Running the application
 You are now ready to run the video capture application.  To do so, run the command ```python camera_capture.py```.  Doing so will prompt you to select the sign you want to record, and the amount of videos you want to record. After entering that information, the app will start recording data for the sign selected.
