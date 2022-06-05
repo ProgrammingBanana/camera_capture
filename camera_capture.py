@@ -23,12 +23,15 @@ class VideoCapture():
         self.sign_data = self.db.get_signs()
         self.remove_done()
         self.amount_left = self.calculate_amount_left()
-        self.name, self.count, self.path = self.select_sign()
-        self.recording_amount = self.get_recording_amount()
-        self.starting_sequence = self.get_starting_sequence()
-        self.ending_sequence = self.get_ending_sequence()
-        self.SEQUENCE_LENGTH = 30
-        self.capture_video()
+        if self.amount_left != 0:
+            self.name, self.count, self.path = self.select_sign()
+            self.recording_amount = self.get_recording_amount()
+            self.starting_sequence = self.get_starting_sequence()
+            self.ending_sequence = self.get_ending_sequence()
+            self.SEQUENCE_LENGTH = 30
+            self.capture_video()
+        else:
+            print('Can\'t run: All videos have been recorded')
 
     def select_sign(self):
         """ Prints on the console the signs to record and the amount of videos recorded for each sign
